@@ -1,88 +1,135 @@
+@prefix ord:   <http://example.org/orders#> .
 @prefix st:    <http://example.org/stigld/> .
 @prefix ex:    <http://example.org/> .
-@prefix law:    <http://example.org/rules#> .
-@prefix dom:    <http://example.org/domain/> .
-@prefix en:    <http://example.org/entities#> .
+@prefix law:   <http://example.org/rules#> .
+@prefix task:  <http://example.org/tasks#> .
 @prefix pos:   <http://example.org/property/position#> .
-@prefix ord:   <http://example.org/orders#> .
-@prefix task:   <http://example.org/tasks#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix en:    <http://example.org/entities#> .
 @prefix topos: <http://example.org/gridPoint/> .
 
+ex:medium  a    st:Medium .
 
-ex:medium a st:Medium .
+ex:diffusionLaw  a  st:Law ;
+        st:affects  ex:medium ;
+        st:rule     law:diffusion .
 
-ex:diffusionLaw a st:Law;
-   st:affects ex:medium;
-   st:rule law:diffusion .
+topos:25  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       1 ;
+        st:adjacentTo  topos:24 , topos:26 , topos:35 , topos:15 ;
+        st:carries     [ a          st:diffusionTrace ;
+                         st:level   "2"^^xsd:double ;
+                         st:source  en:stigma_diff
+                       ] .
 
-topos:25  a                      st:Topos ;
-        st:adjacentTo            topos:24 , topos:26 , topos:35 , topos:15 ;
-        st:carries               [ a dom:diffusionTrace ;
-                                   st:level  "0.001245"^^xsd:double
-                                 ];
-        pos:xPos                 "2"^^xsd:int ;
-        pos:yPos                 "4"^^xsd:int .
+topos:24  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       3 ;
+        st:adjacentTo  topos:25 , topos:34 , topos:23 , topos:14 ;
+        st:carries     en:stigma_diff ;
+        st:carries     [ a          st:diffusionTrace ;
+                         st:level   "3"^^xsd:double ;
+                         st:source  en:stigma_diff
+                       ],
+                       [ a             ex:negFeedback ;
+                                                               st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
+                                                               st:decayRate  "0.5"^^xsd:double ;
+                                                               st:level      1500
+                       ].
 
-topos:24  a                      st:Topos ;
-        st:adjacentTo            topos:25 , topos:34 , topos:23 , topos:14 ;
-        st:carries               en:stigma_diff ;
-        pos:xPos                 "2"^^xsd:int ;
-        pos:yPos                 "3"^^xsd:int .
+topos:23  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       2 ;
+        st:adjacentTo  topos:24 , topos:33 , topos:22 , topos:13 ;
+        st:carries     [ a             ex:negFeedback ;
+                                       st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
+                                       st:decayRate  "0.005"^^xsd:double ;
+                                       st:level      100
+                       ],
+                       [ a             ex:negFeedback ;
+                                       st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
+                                       st:decayRate  "0.005"^^xsd:double ;
+                                       st:level      500
+                       ].
 
-topos:23  a                      st:Topos ;
-        st:adjacentTo            topos:33 , topos:24 , topos:22 , topos:13 ;
-        st:carries               en:stigma_evap;
-        pos:xPos                 "2"^^xsd:int ;
-        pos:yPos                 "2"^^xsd:int .
 
+en:stigma_diff  a     st:Stigma , ex:transportStigma ;
+        st:created    "2021-03-26T15:56:00+01:00"^^xsd:dateTime ;
+        st:decayRate  "0.0005"^^xsd:double ;
+        st:level      "100.0"^^xsd:double .
 
-## Stigma with diffusion and evaporation behavior to call transporters
-en:stigma_diff  a               dom:transportStigma , st:Stigma ;
-        st:decayRate            "0.0005"^^xsd:double ;
-        st:level                "100.0"^^xsd:double ;
-        st:created              "2021-04-16T10:55:00.000+01:00"^^xsd:dateTime .
+topos:5  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       2 ;
+        st:adjacentTo  topos:15 .
 
-## Stigma with evaporation only that works as negative feedback
-en:stigma_evap  a        dom:negFeedback, st:Stigma ;
-        st:decayRate     "0.0005"^^xsd:double ;
-        st:level         "100.0"^^xsd:double ;
-        st:created       "2021-04-16T10:55:00.000+01:00"^^xsd:dateTime .
+topos:15  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       2 ;
+        st:adjacentTo  topos:25 , topos:14 , topos:16 , topos:5 ;
+        st:carries     [ a          st:diffusionTrace ;
+                         st:level   "1"^^xsd:double ;
+                         st:source  en:stigma_diff
+                       ] .
 
-en:machine  a            dom:Artifact, dom:ProductionArtifact ;
-        dom:located      topos:23 ;
-        dom:queue        ( task:order_1 ) ;
-        dom:outputPort   en:output .
+topos:16  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       2 ;
+        st:adjacentTo  topos:26 , topos:17 , topos:15 , topos:6 .
 
-en:output a  dom:Port ;
-        dom:located      topos:24 ;
-        dom:capacity     5 .
+en:stigma_evap  a     st:Stigma , ex:negFeedback ;
+        st:created    "2021-04-20T10:40:00+01:00"^^xsd:dateTime ;
+        st:decayRate  "0.0005"^^xsd:double ;
+        st:level      "100.0"^^xsd:double .
 
-# Orders will be created as single triple while
-ord:1  a   dom:Order .
+en:machine  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:23 ;
+        ex:outputPort  en:output .
+        # Example of a WorkstationTask assiged to a Workstation
+        # ex:queue  [ a ex:WorkstationTask ;
+        #              ex:order ord:1 ;
+        #              ex:startTime "2021-04-19T15:20:00+01:00"^^xsd:dateTime;
+        #              ex:endTime "2021-04-19T15:20:00+01:00"^^xsd:dateTime ] .
 
-# Will be created for an order once it was assigned;
-# receive startTime and endTime (just as startTime + default timespan) when assigned;
-# remove task and order when done.
-task:order_1 a dom:WorkstationTask ;
-        dom:startTime   "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime ;
-        dom:endTime   "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime ;
-        dom:order     ord:1 .
+en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:12;
+        ex:outputPort  en:output_2 .
 
-# Products will be created as triple in the topos of the output slot of the machine
-# when current time exceeds end time.
-# Products will be deleted when picked up by transporters
-en:product_1  a         dom:Product ;
-        dom:located     topos:24.
+en:output  a         ex:Port ;
+        ex:capacity  5 ;
+        ex:located   topos:24 .
 
-en:transporter  a   dom:Transporter , dom:Artifact ;
-        dom:tasks    ( task:pickUpTask ) ;
-        dom:located  topos:34 ;
-        dom:idlePosition topos:xx ;
-        dom:speed    1 ;
-        dom:status   dom:busy .
+en:output_2  a         ex:Port ;
+        ex:capacity  5 ;
+        ex:located   topos:17 .
 
-task:pickUpTask a dom:Task ;
-        dom:startTime   "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime ;
-        dom:endTime   "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime .
+ord:1   a       ex:Order ; ex:created "2021-04-19T15:20:00+01:00"^^xsd:dateTime .
+ord:2   a       ex:Order ; ex:created "2021-04-19T15:20:00+01:00"^^xsd:dateTime .
+
+en:product_1  a     ex:Product ;
+        ex:located  topos:24 .
+
+en:transporter_1  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:xx ;
+        ex:located       topos:16 ;
+        ex:speed         1 ;
+        ex:status        ex:idle .
+
+en:transporter_2  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:xx ;
+        ex:located       topos:5 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
+        ## in case transporter has tasks assigned:
+        ## ex:queue task:pickUpTask , task:moveTask ;
+
+task:pickUpTask  a    ex:Task, ex:PickUpTask ;
+        ex:endTime    "2021-03-26T15:55:40+01:00"^^xsd:dateTime ;
+        ex:startTime  "2021-03-26T15:59:00+01:00"^^xsd:dateTime .
+
+task:moveTask a ex:Task, ex:MoveTask ;
+        ex:toLocation  topos:15 ;
+        ex:endTime    "2021-03-26T15:56:00+01:00"^^xsd:dateTime ;
+        ex:startTime  "2021-03-26T15:55:40+01:00"^^xsd:dateTime .

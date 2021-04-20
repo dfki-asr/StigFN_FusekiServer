@@ -13,7 +13,7 @@ public class linearDecay extends FunctionBase4 {
     public NodeValue exec(NodeValue initTime, NodeValue currentTime, NodeValue decayRate, NodeValue initConcentration) {
         String t1 = ((initTime.toString()).split("\\^")[0].replace("T", " ").split("\\+")[0].split("\"")[1]);
         String t2 = ((currentTime.toString()).split("\\^")[0].replace("T", " ").split("\\+")[0].split("\"")[1]);
-        DateFormat df = new java.text.SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
+        DateFormat df = new java.text.SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         Date date1 = null;
         Date date2 = null;
         try {
@@ -28,6 +28,8 @@ public class linearDecay extends FunctionBase4 {
             double decay = decayRate.getDouble();
             double initConc = initConcentration.getDouble();
             double finalConc = (decay*diff*-1)+initConc;
+            if(finalConc<0)
+                finalConc=0;
             return NodeValue.makeDouble(finalConc);
         }
         catch (Exception e){
