@@ -17,72 +17,43 @@ ex:diffusionLaw  a  st:Law ;
 
 topos:25  a            st:Topos ;
         pos:xPos       2 ;
-        pos:yPos       1 ;
-        st:adjacentTo  topos:24 , topos:26 , topos:35 , topos:15 ;
-        st:carries     [ a          st:diffusionTrace ;
-                         st:level   "2"^^xsd:double ;
-                         st:source  en:stigma_diff
-                       ] .
+        pos:yPos       4 ;
+        st:adjacentTo  topos:24 , topos:26 , topos:35 , topos:15 .
 
 topos:24  a            st:Topos ;
         pos:xPos       2 ;
         pos:yPos       3 ;
-        st:adjacentTo  topos:25 , topos:34 , topos:23 , topos:14 ;
-        st:carries     en:stigma_diff ;
-        st:carries     [ a          st:diffusionTrace ;
-                         st:level   "3"^^xsd:double ;
-                         st:source  en:stigma_diff
-                       ],
-                       [ a             ex:negFeedback ;
-                                                               st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
-                                                               st:decayRate  "0.5"^^xsd:double ;
-                                                               st:level      1500
-                       ].
+        st:adjacentTo  topos:25 , topos:34 , topos:23 , topos:14 .
 
 topos:23  a            st:Topos ;
         pos:xPos       2 ;
         pos:yPos       2 ;
-        st:adjacentTo  topos:24 , topos:33 , topos:22 , topos:13 ;
-        st:carries     [ a             ex:negFeedback ;
-                                       st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
-                                       st:decayRate  "0.005"^^xsd:double ;
-                                       st:level      100
-                       ],
-                       [ a             ex:negFeedback ;
-                                       st:created    "2021-04-20T12:53:36.705+02:00"^^xsd:dateTime ;
-                                       st:decayRate  "0.005"^^xsd:double ;
-                                       st:level      500
-                       ].
-
-
-en:stigma_diff  a     st:Stigma , ex:transportStigma ;
-        st:created    "2021-03-26T15:56:00+01:00"^^xsd:dateTime ;
-        st:decayRate  "0.0005"^^xsd:double ;
-        st:level      "100.0"^^xsd:double .
+        st:adjacentTo  topos:24 , topos:33 , topos:22 , topos:13 .
 
 topos:5  a            st:Topos ;
-        pos:xPos       2 ;
-        pos:yPos       2 ;
-        st:adjacentTo  topos:15 .
+        pos:xPos       0 ;
+        pos:yPos       4 ;
+        st:adjacentTo  topos:15, topos:6, topos:4 .
 
 topos:15  a            st:Topos ;
-        pos:xPos       2 ;
-        pos:yPos       2 ;
-        st:adjacentTo  topos:25 , topos:14 , topos:16 , topos:5 ;
-        st:carries     [ a          st:diffusionTrace ;
-                         st:level   "1"^^xsd:double ;
-                         st:source  en:stigma_diff
-                       ] .
+        pos:xPos       1 ;
+        pos:yPos       4 ;
+        st:adjacentTo  topos:25 , topos:14 , topos:16 , topos:5 .
 
 topos:16  a            st:Topos ;
-        pos:xPos       2 ;
-        pos:yPos       2 ;
+        pos:xPos       1 ;
+        pos:yPos       5 ;
         st:adjacentTo  topos:26 , topos:17 , topos:15 , topos:6 .
 
-en:stigma_evap  a     st:Stigma , ex:negFeedback ;
-        st:created    "2021-04-20T10:40:00+01:00"^^xsd:dateTime ;
-        st:decayRate  "0.0005"^^xsd:double ;
-        st:level      "100.0"^^xsd:double .
+topos:12  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       1 ;
+        st:adjacentTo  topos:11 , topos:13 , topos:2 , topos:22 .
+
+topos:17  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       6 ;
+        st:adjacentTo  topos:16 , topos:27 , topos:18 , topos:7 .
 
 en:machine  a          ex:Artifact , ex:ProductionArtifact ;
         ex:located     topos:23 ;
@@ -98,38 +69,25 @@ en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
         ex:outputPort  en:output_2 .
 
 en:output  a         ex:Port ;
-        ex:capacity  5 ;
+        ex:capacity  2 ;
         ex:located   topos:24 .
 
 en:output_2  a         ex:Port ;
-        ex:capacity  5 ;
+        ex:capacity  1 ;
         ex:located   topos:17 .
 
-ord:1   a       ex:Order ; ex:created "2021-04-19T15:20:00+01:00"^^xsd:dateTime .
-ord:2   a       ex:Order ; ex:created "2021-04-19T15:20:00+01:00"^^xsd:dateTime .
 
-en:product_1  a     ex:Product ;
-        ex:located  topos:24 .
 
 en:transporter_1  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:xx ;
+        ex:idlePosition  topos:16 ;
         ex:located       topos:16 ;
         ex:speed         1 ;
         ex:status        ex:idle .
 
 en:transporter_2  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:xx ;
-        ex:located       topos:5 ;
+        ex:idlePosition  topos:23 ;
+        ex:located       topos:23 ;
         ex:speed         2 ;
         ex:status        ex:idle .
         ## in case transporter has tasks assigned:
         ## ex:queue task:pickUpTask , task:moveTask ;
-
-task:pickUpTask  a    ex:Task, ex:PickUpTask ;
-        ex:endTime    "2021-03-26T15:55:40+01:00"^^xsd:dateTime ;
-        ex:startTime  "2021-03-26T15:59:00+01:00"^^xsd:dateTime .
-
-task:moveTask a ex:Task, ex:MoveTask ;
-        ex:toLocation  topos:15 ;
-        ex:endTime    "2021-03-26T15:56:00+01:00"^^xsd:dateTime ;
-        ex:startTime  "2021-03-26T15:55:40+01:00"^^xsd:dateTime .
