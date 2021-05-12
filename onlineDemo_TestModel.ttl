@@ -16,32 +16,69 @@ ex:diffusionLaw  a  st:Law ;
         st:rule     law:diffusion .
 
 en:machine  a          ex:Artifact , ex:ProductionArtifact ;
-        ex:located     topos:23 ;
+        ex:located     topos:73 ;
         ex:outputPort  en:output .	
 
 en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
         ex:located     topos:12;
         ex:outputPort  en:output_2 .
 
+en:machine_3  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:69 ;
+        ex:outputPort  en:output_3 .
+
+en:machine_4  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:45 ;
+        ex:outputPort  en:output_4 .
+
+en:machine_5 a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:29 ;
+        ex:outputPort  en:output_5 .
+
 en:output  a         ex:Port ;
-        ex:capacity  2 ;
-        ex:located   topos:24 .
+        ex:capacity  1 ;
+        ex:located   topos:83 .
 
 en:output_2  a         ex:Port ;
-        ex:capacity  1 ;
-        ex:located   topos:17 .
+        ex:capacity  5 ;
+        ex:located   topos:13 .
+
+en:output_3  a         ex:Port ;
+        ex:capacity  3 ;
+        ex:located   topos:79 .
+
+en:output_4  a         ex:Port ;
+        ex:capacity  3 ;
+        ex:located   topos:55 .
+
+en:output_5  a         ex:Port ;
+        ex:capacity  5 ;
+        ex:located   topos:39 .
 
 en:transporter_1  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:16 ;
-        ex:located       topos:16 ;
+        ex:idlePosition  topos:32 ;
+        ex:located       topos:32 ;
         ex:speed         1 ;
         ex:status        ex:idle .
 
 en:transporter_2  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:23 ;
-        ex:located       topos:23 ;
+        ex:idlePosition  topos:27 ;
+        ex:located       topos:27 ;
         ex:speed         2 ;
-        ex:status        ex:idle .		
+        ex:status        ex:idle .
+
+en:transporter_3  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:91 ;
+        ex:located       topos:91 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
+
+
+en:transporter_4  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:67 ;
+        ex:located       topos:67 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
 
 topos:60  a            st:Topos ;
         pos:xPos       "5"^^xsd:int ;

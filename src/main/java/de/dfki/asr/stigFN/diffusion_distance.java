@@ -8,10 +8,10 @@ import java.util.List;
 public class diffusion_distance extends FunctionBase4 {
     @Override
     public NodeValue exec(NodeValue distance, NodeValue duration, NodeValue concentration, NodeValue rate) {
-        double L=10;
+        double L=14;
         double nx = 100;
         double T = duration.getDouble();            // can be taken from input of sparql function (duration)
-        double nt = T;
+        double nt = T*10;
         double alpha = rate.getDouble();            // taken from sparql function (rate)
         double conc = concentration.getDouble();    // initial concentration taken from sparql function (concentration)
         double dist = distance.getDouble();         //distance from center, taken from sparql function (distance)
@@ -25,11 +25,11 @@ public class diffusion_distance extends FunctionBase4 {
         double F = alpha*dt/(dx*dx);
         double fac = 1.0 - 2.0*F;
         double[] init_conc = new double[(int)nx+1];
-
+        boolean req_plot = true;
         for(int i=0; i<init_conc.length; i++)   //calculating the initial function
         {
-            if(x[i]>=4.5 && x[i]<=5.5)
-                init_conc[i] = conc*Math.sin(2*Math.PI*5*(x[i]-4.5)/L);
+            if(x[i]>=((L/2)-0.5) && x[i]<=((L/2)+0.5))
+                init_conc[i] = conc*Math.sin(2*Math.PI*5*(x[i]-((L/2)-0.5))/L);
             else
                 init_conc[i] = 0;
         }
@@ -63,7 +63,7 @@ public class diffusion_distance extends FunctionBase4 {
 
         double output = 0.0;            //diffusion intensity at a given distance after a given duration.
 
-        if(dist<5)          //deliberately limiting the spatial domain of diffusion to 10 units (5 on either side of the point where the stigma is deposited)
+        if(dist<(L/2))          //deliberately limiting the spatial domain of diffusion to 10 units (5 on either side of the point where the stigma is deposited)
         {
              output = conc_new[(int) (((L / 2) - dist) * (nx / L))];   //diffusion intensity within "area of effect" i.e 10 distance units
         }
