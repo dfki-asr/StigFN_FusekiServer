@@ -8,7 +8,7 @@ import java.util.List;
 public class diffusion_distance extends FunctionBase4 {
     @Override
     public NodeValue exec(NodeValue distance, NodeValue duration, NodeValue concentration, NodeValue rate) {
-        double L=14;
+        double L=10;
         double nx = 100;
         double T = duration.getDouble();            // can be taken from input of sparql function (duration)
         double nt = T*10;
