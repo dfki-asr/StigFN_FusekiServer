@@ -2,13 +2,16 @@ package de.dfki.asr.stigFN;
 
 import org.apache.jena.sparql.expr.NodeValue;
 import org.apache.jena.sparql.function.FunctionBase4;
+import com.github.sh0nk.matplotlib4j.Plot;
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class diffusion_distance extends FunctionBase4 {
     @Override
     public NodeValue exec(NodeValue distance, NodeValue duration, NodeValue concentration, NodeValue rate) {
-        double L=10;
+        double L=20;
         double nx = 100;
         double T = duration.getDouble();            // can be taken from input of sparql function (duration)
         double nt = T*10;
@@ -25,7 +28,7 @@ public class diffusion_distance extends FunctionBase4 {
         double F = alpha*dt/(dx*dx);
         double fac = 1.0 - 2.0*F;
         double[] init_conc = new double[(int)nx+1];
-        boolean req_plot = true;
+        boolean req_plot = false;
         for(int i=0; i<init_conc.length; i++)   //calculating the initial function
         {
             if(x[i]>=((L/2)-0.5) && x[i]<=((L/2)+0.5))
@@ -36,11 +39,13 @@ public class diffusion_distance extends FunctionBase4 {
 
         List<Double> xList = new ArrayList<>();  //converting to lists, because the "plot" python package requires this
         for(double n:x){
+//            System.out.println(n);
             xList.add(n);
         }
-
+//        System.out.println("List: "+xList);
         List<Double> y1 = new ArrayList<>();     //converting to lists, because the "plot" python package requires this
         for(double n:init_conc){
+//            System.out.println(im+"--->"+n);
             y1.add(n);
         }
 
@@ -61,12 +66,36 @@ public class diffusion_distance extends FunctionBase4 {
             y.add(n);
         }
 
+//        System.out.println("Final concentration at distance "+distance+" from point of pheromone deposition after "+T+" seconds is "+conc_new[(int)(((L/2)-dist)*(nx/L))]);
         double output = 0.0;            //diffusion intensity at a given distance after a given duration.
 
-        if(dist<(L/2))          //deliberately limiting the spatial domain of diffusion to 10 units (5 on either side of the point where the stigma is deposited)
+        if(dist<L/2)          //deliberately limiting the spatial domain of diffusion to 10 units (5 on either side of the point where the stigma is deposited)
         {
-             output = conc_new[(int) (((L / 2) - dist) * (nx / L))];   //diffusion intensity within "area of effect" i.e 10 distance units
+            output = conc_new[(int) (((L / 2) - dist) * (nx / L))];   //diffusion intensity within "area of effect" i.e 10 distance units
         }
+
+        if(req_plot) {      //option to plot the result if necessary using pyhton "plot" package
+            Plot plt = Plot.create();
+            plt.plot()
+                    .add(xList, y)
+                    .label("Diffused profile")
+                    .linestyle("-");
+            plt.plot()
+                    .add(xList, y1)
+                    .label("Initial pheromone deposit")
+                    .linestyle("-");
+            plt.xlabel("space");
+            plt.ylabel("intensity");
+            plt.xlim(0, 21);
+            plt.title("Diffused curve after " + T + " seconds");
+            plt.legend();
+            try {
+                plt.show();
+            } catch (IOException | PythonExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
         return NodeValue.makeDouble(output);
     }
 
@@ -83,7 +112,6 @@ public class diffusion_distance extends FunctionBase4 {
         }
     }
 }
-
 
 
 
