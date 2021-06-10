@@ -8,6 +8,8 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.sparql.function.FunctionRegistry;
+
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -31,5 +33,6 @@ public class startServer {
                 .add("/ds", ds)
                 .build();
         server.start();
+
     }
 }

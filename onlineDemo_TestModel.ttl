@@ -58,7 +58,7 @@ en:output_5  a         ex:Port ;
 en:transporter_1  a        ex:Artifact , ex:Transporter ;
         ex:idlePosition  topos:32 ;
         ex:located       topos:32 ;
-        ex:speed         1 ;
+        ex:speed         2 ;
         ex:status        ex:idle .
 
 en:transporter_2  a        ex:Artifact , ex:Transporter ;
