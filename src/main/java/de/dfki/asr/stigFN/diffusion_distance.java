@@ -14,10 +14,7 @@ public class diffusion_distance extends FunctionBase5 {
     @Override
     public NodeValue exec(NodeValue sourceId, NodeValue distance, NodeValue duration, NodeValue concentration, NodeValue rate) {
 
-	if (!concentrations.containsKey(sourceId.asString())) {
-	    concentrations.put(sourceId.asString(), new Concentration());
-	}
-	Concentration conc = concentrations.get(sourceId.asString());
+	Concentration conc = getAndAddIfNotExist(sourceId.asString());
 
 	double output = conc.getAtDistance(distance, duration, concentration, rate);
 	return NodeValue.makeDouble(output);
