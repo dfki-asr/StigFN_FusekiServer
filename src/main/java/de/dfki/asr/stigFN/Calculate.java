@@ -33,11 +33,10 @@ public class Calculate implements Runnable {
 
     @Override
     public void run() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	calculate();
     }
 
-    private void calculate(NodeValue duration, NodeValue concentration, NodeValue rate) {
-
+    private void calculate() {
 	double T = duration.getDouble();            // can be taken from input of sparql function (duration)
 	double nt = T * 10;
 	double alpha = rate.getDouble();            // taken from sparql function (rate)
