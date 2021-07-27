@@ -42,7 +42,7 @@ public class Concentration {
     public final Object valueMutex = new Object();
 
     public Concentration() {
-	values = new double[(int) (L / 2)];
+	values = new double[(int) (nx+1)];
 	for (int i = 0; i < values.length; i++) {
 	    values[i] = 0;
 	}
