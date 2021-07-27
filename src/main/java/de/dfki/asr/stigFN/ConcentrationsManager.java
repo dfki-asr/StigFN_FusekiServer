@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ConcentrationsManager {
 
-    private static final Map<String, Concentration> concentrations = new HashMap<>();
+    private static volatile Map<String, Concentration> concentrations = new HashMap<>();
 
     public static Concentration getAndAddIfNotExist(String sourceId) {
 	if (!concentrations.containsKey(sourceId)) {
