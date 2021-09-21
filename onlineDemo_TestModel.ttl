@@ -24,11 +24,11 @@ en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
         ex:outputPort  en:output_2 .
 
 en:machine_3  a          ex:Artifact , ex:ProductionArtifact ;
-        ex:located     topos:69 ;
+        ex:located     topos:45 ;
         ex:outputPort  en:output_3 .
 
 en:machine_4  a          ex:Artifact , ex:ProductionArtifact ;
-        ex:located     topos:45 ;
+        ex:located     topos:69 ;
         ex:outputPort  en:output_4 .
 
 en:machine_5 a          ex:Artifact , ex:ProductionArtifact ;
@@ -45,11 +45,11 @@ en:output_2  a         ex:Port ;
 
 en:output_3  a         ex:Port ;
         ex:capacity  3 ;
-        ex:located   topos:79 .
+        ex:located   topos:55 .
 
 en:output_4  a         ex:Port ;
         ex:capacity  3 ;
-        ex:located   topos:55 .
+        ex:located   topos:79 .
 
 en:output_5  a         ex:Port ;
         ex:capacity  5 ;
@@ -62,9 +62,9 @@ en:transporter_1  a        ex:Artifact , ex:Transporter ;
         ex:status        ex:idle .
 
 en:transporter_2  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:50 ;
-        ex:located       topos:50 ;
-        ex:speed         2 ;
+        ex:idlePosition  topos:100 ;
+        ex:located       topos:100 ;
+        ex:speed         1 ;
         ex:status        ex:idle .
 
 en:transporter_3  a        ex:Artifact , ex:Transporter ;
@@ -75,9 +75,9 @@ en:transporter_3  a        ex:Artifact , ex:Transporter ;
 
 
 en:transporter_4  a        ex:Artifact , ex:Transporter ;
-        ex:idlePosition  topos:67 ;
-        ex:located       topos:67 ;
-        ex:speed         2 ;
+        ex:idlePosition  topos:17 ;
+        ex:located       topos:17 ;
+        ex:speed         1 ;
         ex:status        ex:idle .
 
 topos:60  a            st:Topos ;
@@ -579,3 +579,53 @@ topos:8  a             st:Topos ;
         pos:xPos       "0"^^xsd:int ;
         pos:yPos       "7"^^xsd:int ;
         st:adjacentTo  topos:18 , topos:9 , topos:7 .
+		
+ex:ord1
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord2
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:54:09.252+02:00"^^xsd:dateTime .
+
+ex:ord3
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:55:09.252+02:00"^^xsd:dateTime .
+
+ex:ord4
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:56:09.252+02:00"^^xsd:dateTime .
+
+ex:ord5
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:57:09.252+02:00"^^xsd:dateTime .
+
+ex:ord6
+rdf:type ex:Order ;
+ex:status "unassigned"^^xsd:string ;
+ex:created "2021-07-19T14:58:09.252+02:00"^^xsd:dateTime .
+
+#ex:ord7
+#rdf:type ex:Order ;
+#ex:status "unassigned"^^xsd:string ;
+#ex:created "2021-07-19T14:59:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord8
+#rdf:type ex:Order ;
+#ex:status "unassigned"^^xsd:string ;
+#ex:created "2021-07-19T15:00:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord9
+#rdf:type ex:Order ;
+#ex:status "unassigned"^^xsd:string ;
+#ex:created "2021-07-19T15:01:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord10
+#rdf:type ex:Order ;
+#ex:status "unassigned"^^xsd:string ;
+#ex:created "2021-07-19T15:02:09.252+02:00"^^xsd:dateTime .

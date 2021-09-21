@@ -57,12 +57,13 @@ public class Concentration {
 		calculating = true;
 		// start new Thread
 		Calculate runnable = new Calculate(duration, concentration, rate, this);
+                
 		new Thread(runnable).start();
 	    }
 	}
 	// lock values
 	synchronized (valueMutex) {
-	    double result = dist < L / 2 ? values[(int) (((L / 2) - dist) * (nx / L))] : 0;
+	    double result = dist < L / 2 ? values[(int) (((L / 2) - dist) * (nx / L))+1] : 0;
 	    return result;
 	}
     }
