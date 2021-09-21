@@ -1,0 +1,130 @@
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:area1 a ex:Area;
+	ex:connBy ex:pipe12;
+	ex:hasTank ex:TA1LCO, ex:TA1GASOLEO, ex:TA1RAT-A, ex:TA1OCA1, ex:TA1OC1B;
+	ex:nextLiquid ex:B1.
+	
+ex:area2 a ex:Area;
+	ex:connBy ex:pipe12;
+	ex:hasTank ex:TA2LCO, ex:TA2GASOLEO, ex:TA2RAT-A, ex:TA2OCA1, ex:TA2OC1B;
+	ex:nextLiquid ex:B3.
+	
+ex:pipe12 a ex:Pipe;
+	ex:connTo ex:area1, ex:area2;
+	ex:contents ex:B1, ex:B2, ex:B3.
+
+ex:TA1LCO a ex:Tank;
+	ex:stores ex:lco;
+	ex:location ex:area1;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA1GASOLEO a ex:Tank;
+	ex:stores ex:gasoleo;
+	ex:location ex:area1;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA1RAT-A a ex:Tank;
+	ex:stores ex:rat-a;
+	ex:location ex:area1;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA1OCA1 a ex:Tank;
+	ex:stores ex:oca1;
+	ex:location ex:area1;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA1OC1B a ex:Tank;
+	ex:stores ex:oc1b;
+	ex:location ex:area1;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "10"^^xsd:integer.
+	
+ex:TA2LCO a ex:Tank;
+	ex:stores ex:lco;
+	ex:location ex:area2;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "5"^^xsd:integer.
+	
+ex:TA2GASOLEO a ex:Tank;
+	ex:stores ex:gasoleo;
+	ex:location ex:area2;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA2RAT-A a ex:Tank;
+	ex:stores ex:rat-a;
+	ex:location ex:area2;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:TA2OCA1 a ex:Tank;
+	ex:stores ex:oca1;
+	ex:location ex:area2;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "5"^^xsd:integer.
+	
+ex:TA2OC1B a ex:Tank;
+	ex:stores ex:oc1b;
+	ex:location ex:area2;
+	ex:capacity "10"^^xsd:integer;
+	ex:currVol  "0"^^xsd:integer.
+	
+ex:B1 a ex:Batch;
+	ex:hasProduct ex:lco;
+	ex:followedBy ex:B2;
+	ex:precBy rdf:nil.
+	
+ex:B2 a ex:Batch;
+	ex:hasProduct ex:gasoleo;
+	ex:followedBy ex:B3;
+	ex:precBy ex:B1.
+	
+ex:B3 a ex:Batch;
+	ex:hasProduct ex:rat-a;
+	ex:followedBy rdf:nil;
+	ex:precBy rdf:nil.
+	
+ex:B4 a ex:Batch;
+	ex:hasProduct ex:oc1b;
+	ex:followedBy rdf:nil;
+	ex:precBy rdf:nil.
+	
+ex:B5 a ex:Batch;
+	ex:hasProduct ex:oc1b;
+	ex:followedBy rdf:nil;
+	ex:precBy rdf:nil.
+	
+ex:B6 a ex:Batch;
+	ex:hasProduct ex:oca1;
+	ex:followedBy rdf:nil;
+	ex:precBy rdf:nil.
+	
+ex:B7 a ex:Batch;
+	ex:hasProduct ex:lco;
+	ex:followedBy rdf:nil;
+	ex:precBy rdf:nil.
+	
+ex:lco a ex:Product.
+
+ex:gasoleo a ex:Product.
+
+ex:oc1b a ex:Product.
+
+ex:oca1 a ex:Product.
+
+ex:rat-a a ex:Product.
+
+ex:g1 a ex:Goal;
+	ex:sendProd ex:B2;
+	ex:prodDest ex:TA2GASOLEO.
+	
+ex:g2 a ex:Goal;
+	ex:sendProd ex:B3;
+	ex:prodDest ex:TA1RAT-A.

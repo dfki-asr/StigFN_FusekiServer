@@ -1,0 +1,148 @@
+@prefix schema: <https://schema.org/> .
+@prefix mosaik: <http://www.mosaik-projekt.de/vocab/#> .
+@prefix hm:    <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix js:    <https://www.w3.org/2019/wot/json-schema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix stigmergy: <http://www.mosaik-projekt.de/vocab/stigmergy/#> .
+@prefix sol:   <https://localhost:8443/arena2036/stations/soldering/#> .
+@prefix mem:   <https://localhost:8443/arena2036/products/memory/#> .
+@prefix fix:   <https://localhost:8443/arena2036/stations/fixing/#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix mb:    <https://localhost:8443/arena2036/products/mainboard/#> .
+@prefix sen:   <https://localhost:8443/arena2036/products/sensor-module/#> .
+@prefix ram:   <https://localhost:8443/arena2036/products/ram/#> .
+@prefix order: <http://localhost:3030/orders/#> .
+@prefix mm:    <https://localhost:8443/arena2036/products/main-module/#> .
+@prefix recipes: <http://localhost:3030/recipes/#> .
+@prefix st:    <http://www.w3.org/ns/posix/stat#> .
+@prefix prod:  <https://localhost:8443/arena2036/products/> .
+@prefix cpu:   <https://localhost:8443/arena2036/products/cpu/#> .
+@prefix cm:    <https://localhost:8443/arena2036/products/comm-module/#> .
+@prefix steps: <http://www.mosaik-projekt.de/vocab/production/#> .
+@prefix td:    <https://www.w3.org/2019/wot/td#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ldp:   <http://www.w3.org/ns/ldp#> .
+
+steps:solder  a  schema:CreativeWork .
+
+steps:dispense  a  schema:CreativeWork .
+
+recipes:main-module  a  schema:HowTo ;
+        schema:about   mm:product ;
+        schema:step    steps:solder ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  cpu:product
+                       ] ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  ram:product
+                       ] .
+
+recipes:cpu  a        schema:HowTo ;
+        schema:about  cpu:product , ram:product ;
+        schema:step   steps:dispense .
+
+order:mainModule  a             mosaik:Order ;
+        dct:identifier          "order-main-mod" ;
+        ldp:hasMemberRelation   mosaik:configuredby ;
+        ldp:membershipResource  <http://localhost:8080/example/#mainParts> ;
+        schema:about            mm:product .
+
+<http://localhost:8080/example/#mainParts>
+        a       mosaik:Product .
+
+cpu:dispenser-1  a                     td:Thing ;
+        schema:yield                   cpu:product ;
+        td:providesInteractionPattern  cpu:dispense-cpu ;
+        td:thingName                   "CPU Dispenser 1" .
+
+ram:dispenser-1  a                     td:Thing ;
+        schema:yield                   ram:product ;
+        td:providesInteractionPattern  ram:dispense-ram ;
+        td:thingName                   "RAM Dispenser 1" .
+
+sol:station-1  a                       td:Thing ;
+        td:providesInteractionPattern  sol:soldering ;
+        td:thingName                   "Soldering Station 1" .
+
+sol:soldering  a                td:InteractionPattern ;
+        schema:step             steps:solder ;
+        td:interactionName      "produce" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12355/produce> ] .
+
+cpu:dispense-cpu  a             td:InteractionPattern ;
+        schema:step             steps:dispense ;
+        td:interactionName      "Dispense CPU" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12351/dispense> ] .
+
+ram:dispense-ram  a             td:InteractionPattern ;
+        schema:step             steps:dispense ;
+        td:interactionName      "Dispense RAM" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12352/dispense> ] .
+
+steps:fixing  a  schema:CreativeWork .
+
+recipes:module-with-parts
+        a              schema:HowTo ;
+        schema:about   mm:equipped-module ;
+        schema:step    steps:fixing ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  mm:product
+                       ] ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  prod:audio
+                       ] ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  prod:usb
+                       ] ;
+        schema:supply  [ a            schema:HowToSupply ;
+                         schema:item  prod:sim-slot
+                       ] .
+
+order:equippedModule  a  mosaik:Order ;
+        dct:identifier  "order-eq-mod" ;
+        schema:about    mm:equipped-module .
+
+prod:kleinkruschtdispenser
+        a                              td:Thing ;
+        schema:yield                   prod:micro-usb , prod:audio , prod:sim-slot ;
+        td:providesInteractionPattern  prod:dispense-kleinkruscht ;
+        td:thingName                   "Kleinkruscht Dispenser" .
+
+prod:dispense-kleinkruscht
+        a                       td:InteractionPattern ;
+        schema:step             steps:dispense ;
+        td:interactionName      "Dispense Kleinkruscht" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12352/dispense> ] .
+
+fix:station-1  a                       td:Thing ;
+        td:providesInteractionPattern  fix:fixing-1 ;
+        td:thingName                   "Fixing Station 1" .
+
+fix:station-2  a                       td:Thing ;
+        td:providesInteractionPattern  fix:fixing-2 ;
+        td:thingName                   "Fixing Station 2" .
+
+fix:fixing-1  a                   td:InteractionPattern ;
+        schema:step             steps:fixing ;
+        td:interactionName      "fix" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12365/produce> ] .
+
+fix:fixing-2  a                   td:InteractionPattern ;
+        schema:step             steps:fixing ;
+        td:interactionName      "fix" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12366/produce> ] .
+
+
+cpu:dispenser-2  a                     td:Thing ;
+        schema:yield                   cpu:product ;
+        td:providesInteractionPattern  cpu:dispense-cpu-2 ;
+        td:thingName                   "CPU Dispenser 2" .
+
+cpu:dispense-cpu-2  a           td:InteractionPattern ;
+        schema:step             steps:dispense ;
+        td:interactionName      "Dispense CPU" ;
+        td:isAccessibleThrough  [ td:href  <http://localhost:12359/dispense> ] .
+
+
+

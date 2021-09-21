@@ -24,6 +24,7 @@ public class startServer {
         ref.put("http://www.dfki.de/func#duration_msecs", duration_msec.class);
         ref.put("http://www.dfki.de/func#linear_decay", linearDecay.class);
         ref.put("http://www.dfki.de/func#exponential_decay", exponentialDecay.class);
+        
 
         Model model = ModelFactory.createDefaultModel();
         model.read(new FileInputStream("onlineDemo_TestModel.ttl"), null, "TTL");
@@ -33,6 +34,7 @@ public class startServer {
                 .add("/ds", ds)
                 .build();
         server.start();
+      
 
     }
 }
