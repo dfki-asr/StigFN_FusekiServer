@@ -18,11 +18,11 @@ public class ConcentrationsManager {
 
     public static Concentration getAndAddIfNotExist(String sourceId) {
 	if (!concentrations.containsKey(sourceId)) {
-	    System.out.println("[diffusion_distance] Source Stigma with ID " + sourceId + " not yet present. Adding.");
+//	    System.out.println("[diffusion_distance] Source Stigma with ID " + sourceId + " not yet present. Adding.");
 	    concentrations.put(sourceId, new Concentration());
 	}
 
-	System.out.println("[diffusion_distance] Returning Source Stigma with ID " + sourceId);
+//	System.out.println("[diffusion_distance] Returning Source Stigma with ID " + sourceId);
 	return concentrations.get(sourceId);
     }
 }
